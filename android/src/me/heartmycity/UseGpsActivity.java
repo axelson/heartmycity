@@ -130,10 +130,10 @@ public class UseGpsActivity extends Activity {
   private void switchView() {
     System.out.println("trying to switch view");
     ViewSwitcher viewSwitcher = new ViewSwitcher(this);
-//    LayoutInflater inflater = (LayoutInflater) this
-//        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//    View layout = inflater.inflate(R.layout.report_problem,
-//        (ViewGroup) this.findViewById(R.id.report_problem_layout));
+    // LayoutInflater inflater = (LayoutInflater) this
+    // .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    // View layout = inflater.inflate(R.layout.report_problem,
+    // (ViewGroup) this.findViewById(R.id.report_problem_layout));
 
     Intent intent = new Intent(this, ReportProblemActivity.class);
     this.startActivity(intent);

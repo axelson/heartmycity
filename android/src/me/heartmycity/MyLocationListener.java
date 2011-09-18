@@ -11,7 +11,7 @@ import android.widget.Toast;
  * 
  */
 public class MyLocationListener implements LocationListener {
-  
+
   private Context context;
 
   public MyLocationListener(Context context) {
@@ -51,22 +51,22 @@ public class MyLocationListener implements LocationListener {
   @Override
   public void onProviderDisabled(String provider) {
     System.out.println("provider disabled");
-    Toast.makeText( getApplicationContext(),
+    Toast.makeText(getApplicationContext(),
 
-        "Gps Disabled",
+    "Gps Disabled",
 
-        Toast.LENGTH_SHORT ).show();
+    Toast.LENGTH_SHORT).show();
   }
 
   /** {@inheritDoc} */
   @Override
   public void onProviderEnabled(String provider) {
     System.out.println("provider enabled");
-    Toast.makeText( getApplicationContext(),
+    Toast.makeText(getApplicationContext(),
 
-        "Gps Enabled",
+    "Gps Enabled",
 
-        Toast.LENGTH_SHORT).show();
+    Toast.LENGTH_SHORT).show();
   }
 
   /** {@inheritDoc} */

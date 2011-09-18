@@ -38,7 +38,7 @@ public class ProblemReport implements Serializable {
 
   public ProblemReport(String description, Bitmap image, Location loc) {
     Utils.checkNull(description, "description");
-//    Utils.checkNull(image, "image");
+    // Utils.checkNull(image, "image");
     Utils.checkNull(loc, "location");
 
     this.description = description;
@@ -103,8 +103,8 @@ public class ProblemReport implements Serializable {
 
     System.out.println("os is: " + os);
     System.out.println("image is: " + image);
-    if(image == null) {
-      //TODO: Handle null data
+    if (image == null) {
+      // TODO: Handle null data
     }
     image.compress(CompressFormat.PNG, 100, os);
     try {
@@ -141,14 +141,14 @@ public class ProblemReport implements Serializable {
   public Location getLoc() {
     return loc;
   }
-  
+
   /**
    * @param loc the loc to set
    */
   public void setLoc(Location loc) {
     this.loc = loc;
   }
-  
+
   /**
    * @param description the description to set
    */
@@ -169,23 +169,23 @@ public class ProblemReport implements Serializable {
   public void setImage(Bitmap image) {
     this.image = image;
   }
-  
+
   public JSONObject toJson() {
     JSONObject json = new JSONObject();
     try {
-    json.accumulate("description", this.getDescription());
-    //TODO: Fix lat and long and phone id
-    json.accumulate("lat", this.getLoc().getLatitude());
-    json.accumulate("long", this.getLoc().getLongitude());
-    json.accumulate("phone_id", "123josidf23ZZ");
-    
-    System.out.println(json.toString(4));
+      json.accumulate("description", this.getDescription());
+      // TODO: Fix lat and long and phone id
+      json.accumulate("lat", this.getLoc().getLatitude());
+      json.accumulate("long", this.getLoc().getLongitude());
+      json.accumulate("phone_id", "123josidf23ZZ");
+
+      System.out.println(json.toString(4));
     }
     catch (JSONException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
+
     return json;
   }
 }

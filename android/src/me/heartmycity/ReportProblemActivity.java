@@ -85,8 +85,8 @@ public class ReportProblemActivity extends Activity {
     // TODO: Actually upload picture
     String text = "Uploaded picture!";
     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-    
-    //TODO: Get the real location
+
+    // TODO: Get the real location
     LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
     LocationListener mlocListener = new MyLocationListener(getApplicationContext());

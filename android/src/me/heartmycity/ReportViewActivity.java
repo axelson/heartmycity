@@ -31,12 +31,12 @@ public class ReportViewActivity extends Activity {
     // FIXME: Hack because we can't serialize bitmaps
     ImageView reportImage = (ImageView) this.findViewById(R.id.report_image);
     Bitmap bitmap = problemReport.getImage();
-//  bitmap.writeToParcel(null, BIND_AUTO_CREATE)
+    // bitmap.writeToParcel(null, BIND_AUTO_CREATE)
     this.image.setImageBitmap(bitmap);
     this.descriptionField.setText(problemReport.getDescription());
-    
+
     ServerUpload serverUpload = new ServerUpload();
-//    serverUpload.tryUpload(problemReport);
+    // serverUpload.tryUpload(problemReport);
     serverUpload.postData(problemReport);
   }
 }
