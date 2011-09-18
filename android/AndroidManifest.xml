@@ -12,6 +12,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".ReportProblemActivity"></activity>
+		<activity android:name=".ReportViewActivity"></activity>
 
 	</application>
 </manifest>

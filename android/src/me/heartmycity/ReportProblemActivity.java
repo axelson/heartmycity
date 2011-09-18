@@ -76,5 +76,8 @@ public class ReportProblemActivity extends Activity {
     // TODO: Actually upload picture
     String text = "Uploaded picture!";
     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+
+    Intent intent = new Intent(this, ReportViewActivity.class);
+    this.startActivity(intent);
   }
 }
