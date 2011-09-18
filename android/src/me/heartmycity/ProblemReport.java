@@ -94,6 +94,9 @@ public class ProblemReport implements Serializable {
 
     System.out.println("os is: " + os);
     System.out.println("image is: " + image);
+    if(image == null) {
+
+    }
     image.compress(CompressFormat.PNG, 100, os);
     try {
       os.flush();

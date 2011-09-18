@@ -36,6 +36,8 @@ public class UseGpsActivity extends Activity {
     this.reportProblemButton = (Button) this.findViewById(R.id.report_problem_button);
 
     System.out.println("created!");
+    ServerUpload serverUpload = new ServerUpload();
+    serverUpload.postData(null);
 
     /* Use the LocationManager class to obtain GPS locations */
 

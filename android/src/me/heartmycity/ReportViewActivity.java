@@ -34,5 +34,9 @@ public class ReportViewActivity extends Activity {
 //  bitmap.writeToParcel(null, BIND_AUTO_CREATE)
     this.image.setImageBitmap(bitmap);
     this.descriptionField.setText(problemReport.getDescription());
+    
+    ServerUpload serverUpload = new ServerUpload();
+//    serverUpload.tryUpload(problemReport);
+    serverUpload.postData(problemReport);
   }
 }
