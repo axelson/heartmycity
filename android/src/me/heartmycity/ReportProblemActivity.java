@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -17,13 +18,16 @@ import android.widget.Toast;
 public class ReportProblemActivity extends Activity {
   private static final int PICTURE_RESULT = 0;
   ImageView image = null;
+  EditText reportDescription = null;
   Button sendReportButton = null;
+  private Bitmap bitmap;
 
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.report_problem);
 
     this.image = (ImageView) this.findViewById(R.id.report_image);
+    this.reportDescription = (EditText) this.findViewById(R.id.report_description_field);
     this.sendReportButton = (Button) this.findViewById(R.id.send_report_button);
 
     this.image.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +73,7 @@ public class ReportProblemActivity extends Activity {
       // ImageView imagePicture = (ImageView)
       // this.findViewById(R.id.report_image);
       this.image.setImageBitmap(pic);
+      this.bitmap = pic;
     }
   }
 
@@ -77,7 +82,11 @@ public class ReportProblemActivity extends Activity {
     String text = "Uploaded picture!";
     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
 
+    String description = this.reportDescription.getText().toString();
+    ProblemReport problemReport = new ProblemReport(description, this.bitmap);
+
     Intent intent = new Intent(this, ReportViewActivity.class);
+    ProblemReport.packageIntent(intent, problemReport);
     this.startActivity(intent);
   }
 }
