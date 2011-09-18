@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,76 +14,41 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 /**
  * @author Jason Axelson
  * 
  */
 public class ServerUpload {
-  /**
-   * 
-   */
-  private static final String SERVER_URL = "http://posttestserver.com/post.php?dump";
-
-  protected void tryUpload(ProblemReport report) {
-    System.out.println("uploading to server!");
-    HttpURLConnection connection;
-    OutputStreamWriter request = null;
-
-    URL url = null;
-    String response = null;
-    String mUsername = null;
-    String mPassword = null;
-    // String parameters = "username=" + mUsername + "&password=" + mPassword;
-    String parameters = "description" + report.getDescription() + "bob";
-
-    try {
-      url = new URL(SERVER_URL);
-      connection = (HttpURLConnection) url.openConnection();
-      connection.setDoOutput(true);
-      connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-      connection.setRequestMethod("POST");
-
-      request = new OutputStreamWriter(connection.getOutputStream());
-      request.write(parameters);
-      request.flush();
-      request.close();
-      String line = "";
-      InputStreamReader isr = new InputStreamReader(connection.getInputStream());
-      BufferedReader reader = new BufferedReader(isr);
-      StringBuilder sb = new StringBuilder();
-      while ((line = reader.readLine()) != null) {
-        sb.append(line + "\n");
-      }
-      // Response from server after login process will be stored in response
-      // variable.
-      response = sb.toString();
-      // You can perform UI operations here
-      // Toast.makeText(this, "Message from Server: \n" + response, 0).show();
-      System.out.println("Message from Server: \n" + response);
-      isr.close();
-      reader.close();
-
-    }
-    catch (IOException e) {
-      System.out.println("erorr: " + e);
-      // Error
-    }
-  }
+//  private static final String SERVER_URL = "http://posttestserver.com/post.php?dump";
+  private static final String SERVER_URL = "http://ec2-107-20-189-184.compute-1.amazonaws.com/json/problems/";
 
   public void postData(ProblemReport report) {
+    JSONObject json = report.toJson();
     // Create a new HttpClient and Post Header
     HttpClient httpclient = new DefaultHttpClient();
     HttpPost httppost = new HttpPost(SERVER_URL);
+    
+    StringEntity stringEntity = null;
+    try {
+      stringEntity = new StringEntity(json.toString());
+    }
+    catch (UnsupportedEncodingException e1) {
+      e1.printStackTrace();
+      System.out.println(e1.getStackTrace());
+    }
+    httppost.setEntity(stringEntity);
 
     try {
       // Add your data
-      List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-      nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-      nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
-      httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//      List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+//      nameValuePairs.add(new BasicNameValuePair("id", "12345"));
+//      nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
+//      httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
       // Execute HTTP Post Request
       HttpResponse response = httpclient.execute(httppost);

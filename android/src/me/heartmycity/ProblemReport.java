@@ -6,11 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
 
@@ -20,23 +24,26 @@ import android.os.Environment;
  * 
  */
 public class ProblemReport implements Serializable {
-  /**
-   * 
-   */
+  private static final String LOCATION_KEY = "location";
   private static final String IMAGE_PATH_KEY = "image-path";
-
   public static final String DESCRIPTION_KEY = "description";
 
   private static final long serialVersionUID = 1L;
 
   private String description = null;
   private Bitmap image = null;
+  private Location loc = null;
 
   public static final String PROBLEM_REPORT_KEY = "problemReport";
 
-  public ProblemReport(String description, Bitmap image) {
+  public ProblemReport(String description, Bitmap image, Location loc) {
+    Utils.checkNull(description, "description");
+//    Utils.checkNull(image, "image");
+    Utils.checkNull(loc, "location");
+
     this.description = description;
     this.image = image;
+    this.loc = loc;
   }
 
   public static ProblemReport fromBundle(Bundle bundle) {
@@ -45,8 +52,10 @@ public class ProblemReport implements Serializable {
     String description = (String) bundle.getCharSequence(DESCRIPTION_KEY);
     String imagePath = (String) bundle.getCharSequence(IMAGE_PATH_KEY);
     Bitmap bMap = BitmapFactory.decodeFile(imagePath);
+    Location loc = (Location) bundle.getSerializable(LOCATION_KEY);
     System.out.println("got image from dir");
-    ProblemReport report = new ProblemReport(description, bMap);
+    System.out.println("loc is " + loc);
+    ProblemReport report = new ProblemReport(description, bMap, loc);
 
     return report;
   }
@@ -95,7 +104,7 @@ public class ProblemReport implements Serializable {
     System.out.println("os is: " + os);
     System.out.println("image is: " + image);
     if(image == null) {
-
+      //TODO: Handle null data
     }
     image.compress(CompressFormat.PNG, 100, os);
     try {
@@ -114,6 +123,7 @@ public class ProblemReport implements Serializable {
     // bundle.putSerializable(PROBLEM_REPORT_KEY, report);
     bundle.putCharSequence(DESCRIPTION_KEY, report.getDescription());
     bundle.putCharSequence(IMAGE_PATH_KEY, filePath);
+    bundle.putSerializable(LOCATION_KEY, (Serializable) report.getLoc());
     // intent.putExtra("image-path", filePath);
     intent.putExtra(PROBLEM_REPORT_KEY, bundle);
   }
@@ -125,6 +135,20 @@ public class ProblemReport implements Serializable {
     return description;
   }
 
+  /**
+   * @return the loc
+   */
+  public Location getLoc() {
+    return loc;
+  }
+  
+  /**
+   * @param loc the loc to set
+   */
+  public void setLoc(Location loc) {
+    this.loc = loc;
+  }
+  
   /**
    * @param description the description to set
    */
@@ -144,5 +168,24 @@ public class ProblemReport implements Serializable {
    */
   public void setImage(Bitmap image) {
     this.image = image;
+  }
+  
+  public JSONObject toJson() {
+    JSONObject json = new JSONObject();
+    try {
+    json.accumulate("description", this.getDescription());
+    //TODO: Fix lat and long and phone id
+    json.accumulate("lat", this.getLoc().getLatitude());
+    json.accumulate("long", this.getLoc().getLongitude());
+    json.accumulate("phone_id", "123josidf23ZZ");
+    
+    System.out.println(json.toString(4));
+    }
+    catch (JSONException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    
+    return json;
   }
 }

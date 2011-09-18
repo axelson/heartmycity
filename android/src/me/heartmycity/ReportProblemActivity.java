@@ -1,8 +1,12 @@
 package me.heartmycity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -81,9 +85,19 @@ public class ReportProblemActivity extends Activity {
     // TODO: Actually upload picture
     String text = "Uploaded picture!";
     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    
+    //TODO: Get the real location
+    LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+    LocationListener mlocListener = new MyLocationListener(getApplicationContext());
+
+    mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
+
+    // LocationProvider locationProvider = LocationManager.NETWORK_PROVIDER;
+    Location loc = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
     String description = this.reportDescription.getText().toString();
-    ProblemReport problemReport = new ProblemReport(description, this.bitmap);
+    ProblemReport problemReport = new ProblemReport(description, this.bitmap, loc);
 
     Intent intent = new Intent(this, ReportViewActivity.class);
     System.out.println("pic " + this.bitmap);

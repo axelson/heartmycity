@@ -36,14 +36,10 @@ public class UseGpsActivity extends Activity {
     this.reportProblemButton = (Button) this.findViewById(R.id.report_problem_button);
 
     System.out.println("created!");
-    ServerUpload serverUpload = new ServerUpload();
-    serverUpload.postData(null);
 
     /* Use the LocationManager class to obtain GPS locations */
 
-    LocationManager mlocManager =
-
-    (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
     LocationListener mlocListener = new MyLocationListener(getApplicationContext());
 
@@ -53,6 +49,9 @@ public class UseGpsActivity extends Activity {
     Location loc = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     String string = loc.toString();
     System.out.println(string);
+    ServerUpload serverUpload = new ServerUpload();
+    ProblemReport report = new ProblemReport("des", null, loc);
+    serverUpload.postData(report);
 
     Geocoder geocoder = new Geocoder(getApplicationContext());
     String prettyPrintAddress = null;
