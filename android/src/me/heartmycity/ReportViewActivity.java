@@ -2,7 +2,10 @@ package me.heartmycity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +28,11 @@ public class ReportViewActivity extends Activity {
     this.image = (ImageView) this.findViewById(R.id.report_view_image);
     this.descriptionField = (TextView) this.findViewById(R.id.report_view_description);
 
-    this.image.setImageBitmap(problemReport.getImage());
+    // FIXME: Hack because we can't serialize bitmaps
+    ImageView reportImage = (ImageView) this.findViewById(R.id.report_image);
+    Bitmap bitmap = problemReport.getImage();
+//  bitmap.writeToParcel(null, BIND_AUTO_CREATE)
+    this.image.setImageBitmap(bitmap);
     this.descriptionField.setText(problemReport.getDescription());
   }
 }

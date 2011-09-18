@@ -86,7 +86,9 @@ public class ReportProblemActivity extends Activity {
     ProblemReport problemReport = new ProblemReport(description, this.bitmap);
 
     Intent intent = new Intent(this, ReportViewActivity.class);
-    ProblemReport.packageIntent(intent, problemReport);
+    System.out.println("pic " + this.bitmap);
+    System.out.println("image is: " + problemReport.getImage());
+    ProblemReport.packageIntent(intent, problemReport, this);
     this.startActivity(intent);
   }
 }
