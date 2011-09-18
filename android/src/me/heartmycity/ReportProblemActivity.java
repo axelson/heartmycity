@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings.Secure;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -97,7 +98,10 @@ public class ReportProblemActivity extends Activity {
     Location loc = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
     String description = this.reportDescription.getText().toString();
-    ProblemReport problemReport = new ProblemReport(description, this.bitmap, loc);
+    Context context = getApplicationContext();
+    String android_id = Secure.getString(context.getContentResolver(),
+        Secure.ANDROID_ID); 
+    ProblemReport problemReport = new ProblemReport(description, this.bitmap, loc, android_id);
 
     Intent intent = new Intent(this, ReportViewActivity.class);
     System.out.println("pic " + this.bitmap);

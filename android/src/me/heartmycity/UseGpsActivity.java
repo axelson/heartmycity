@@ -14,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings.Secure;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -50,7 +51,9 @@ public class UseGpsActivity extends Activity {
     String string = loc.toString();
     System.out.println(string);
     ServerUpload serverUpload = new ServerUpload();
-    ProblemReport report = new ProblemReport("des", null, loc);
+    String android_id = Secure.getString(getApplicationContext().getContentResolver(),
+        Secure.ANDROID_ID);
+    ProblemReport report = new ProblemReport("des", null, loc, android_id);
     serverUpload.postData(report);
 
     Geocoder geocoder = new Geocoder(getApplicationContext());

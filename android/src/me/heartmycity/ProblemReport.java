@@ -24,6 +24,10 @@ import android.os.Environment;
  * 
  */
 public class ProblemReport implements Serializable {
+  /**
+   * 
+   */
+  private static final String ANDROID_ID_KEY = "androidId";
   private static final String LOCATION_KEY = "location";
   private static final String IMAGE_PATH_KEY = "image-path";
   public static final String DESCRIPTION_KEY = "description";
@@ -33,10 +37,11 @@ public class ProblemReport implements Serializable {
   private String description = null;
   private Bitmap image = null;
   private Location loc = null;
+  private String androidId = null;
 
   public static final String PROBLEM_REPORT_KEY = "problemReport";
 
-  public ProblemReport(String description, Bitmap image, Location loc) {
+  public ProblemReport(String description, Bitmap image, Location loc, String androidId) {
     Utils.checkNull(description, "description");
     // Utils.checkNull(image, "image");
     Utils.checkNull(loc, "location");
@@ -44,6 +49,8 @@ public class ProblemReport implements Serializable {
     this.description = description;
     this.image = image;
     this.loc = loc;
+    this.androidId = androidId;
+    
   }
 
   public static ProblemReport fromBundle(Bundle bundle) {
@@ -53,9 +60,10 @@ public class ProblemReport implements Serializable {
     String imagePath = (String) bundle.getCharSequence(IMAGE_PATH_KEY);
     Bitmap bMap = BitmapFactory.decodeFile(imagePath);
     Location loc = (Location) bundle.getSerializable(LOCATION_KEY);
+    String androidId = (String) bundle.getCharSequence(ANDROID_ID_KEY);
     System.out.println("got image from dir");
     System.out.println("loc is " + loc);
-    ProblemReport report = new ProblemReport(description, bMap, loc);
+    ProblemReport report = new ProblemReport(description, bMap, loc, androidId);
 
     return report;
   }
@@ -124,6 +132,7 @@ public class ProblemReport implements Serializable {
     bundle.putCharSequence(DESCRIPTION_KEY, report.getDescription());
     bundle.putCharSequence(IMAGE_PATH_KEY, filePath);
     bundle.putSerializable(LOCATION_KEY, (Serializable) report.getLoc());
+    bundle.putCharSequence(ANDROID_ID_KEY, report.getAndroidId());
     // intent.putExtra("image-path", filePath);
     intent.putExtra(PROBLEM_REPORT_KEY, bundle);
   }
@@ -177,7 +186,8 @@ public class ProblemReport implements Serializable {
       // TODO: Fix lat and long and phone id
       json.accumulate("lat", this.getLoc().getLatitude());
       json.accumulate("long", this.getLoc().getLongitude());
-      json.accumulate("phone_id", "123josidf23ZZ");
+//      json.accumulate("phone_id", "123josidf23ZZ");
+      json.accumulate("phone_id", this.getAndroidId());
 
       System.out.println(json.toString(4));
     }
@@ -187,5 +197,19 @@ public class ProblemReport implements Serializable {
     }
 
     return json;
+  }
+
+  /**
+   * @return the androidId
+   */
+  public String getAndroidId() {
+    return androidId;
+  }
+
+  /**
+   * @param androidId the androidId to set
+   */
+  public void setAndroidId(String androidId) {
+    this.androidId = androidId;
   }
 }
