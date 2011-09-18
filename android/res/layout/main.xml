@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <ImageView android:layout_width="wrap_content" android:src="@drawable/logo" android:id="@+id/imageView1" android:layout_height="wrap_content"></ImageView>
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/hello"
+    />
+<TextView android:layout_height="wrap_content" android:text="TextView" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/address_view"></TextView>
+<Button android:layout_width="wrap_content" android:text="@string/take_picture_button" android:layout_height="wrap_content" android:id="@+id/take_picture_button"></Button>
+<Button android:text="@string/report_problem_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/report_problem_button"></Button>
+</LinearLayout>

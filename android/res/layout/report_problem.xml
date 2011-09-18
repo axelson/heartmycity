@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/report_problem_layout" android:orientation="vertical"
+	android:layout_width="match_parent" android:layout_height="match_parent">
+	<ImageView android:src="@drawable/polaroid"
+		android:layout_width="fill_parent"
+		android:layout_height="200px"
+		android:id="@+id/report_image"
+		android:scaleType="fitCenter"></ImageView>
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
+		android:id="@+id/textView1" android:text="@string/report_description"></TextView>
+	<EditText android:layout_width="match_parent"
+		android:layout_height="wrap_content" android:inputType="textMultiLine"
+		android:id="@+id/report_description_field">
+		<requestFocus></requestFocus>
+	</EditText>
+	<Button android:text="@string/send_report_button"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/send_report_button"></Button>
+
+</LinearLayout>
