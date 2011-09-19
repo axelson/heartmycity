@@ -8,4 +8,6 @@
     <string name="send_report_button">Send Report</string>
     <string name="report_view_title">This is your Report</string>
     <string name="loading_text">loading...</string>
+    <string name="name_by_logo">HeartMyCity.me</string>
+    <string name="app_description">Online/mobile system to help make cities a better place</string>
 </resources>

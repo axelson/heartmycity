@@ -6,14 +6,12 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.Settings.Secure;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +21,9 @@ import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class UseGpsActivity extends Activity {
-  public Button takePictureButton = null;
-  public Button reportProblemButton = null;
+  public ImageView reportProblemButton = null;
+  public ImageView viewProblemsButton = null;
+  public ImageView visitWebsiteButton = null;
   private int PICTURE_RESULT = 0;
 
   /** Called when the activity is first created. */
@@ -33,8 +32,9 @@ public class UseGpsActivity extends Activity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
-    this.takePictureButton = (Button) this.findViewById(R.id.take_picture_button);
-    this.reportProblemButton = (Button) this.findViewById(R.id.report_problem_button);
+    this.reportProblemButton = (ImageView) this.findViewById(R.id.report_problem_button);
+    this.viewProblemsButton = (ImageView) this.findViewById(R.id.view_problems_button);
+    this.visitWebsiteButton = (ImageView) this.findViewById(R.id.visit_website_button);
 
     System.out.println("created!");
 
@@ -53,8 +53,9 @@ public class UseGpsActivity extends Activity {
     ServerUpload serverUpload = new ServerUpload();
     String android_id = Secure.getString(getApplicationContext().getContentResolver(),
         Secure.ANDROID_ID);
-    ProblemReport report = new ProblemReport("des", null, loc, android_id);
-    serverUpload.postData(report);
+//    ProblemReport report = new ProblemReport("des", null, loc, android_id);
+//    ProblemReport.packageIntent(new Intent(), report, this.getApplicationContext());
+//    serverUpload.postData(report);
 
     Geocoder geocoder = new Geocoder(getApplicationContext());
     String prettyPrintAddress = null;
@@ -80,14 +81,6 @@ public class UseGpsActivity extends Activity {
     TextView currentAddress = (TextView) this.findViewById(R.id.address_view);
     currentAddress.setText(prettyPrintAddress);
 
-    this.takePictureButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        System.out.println("take pic button");
-        takePicture();
-      }
-    });
-
     this.reportProblemButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -99,35 +92,6 @@ public class UseGpsActivity extends Activity {
   private String prettyPrintAddress(Address address) {
     String addressLine = address.getAddressLine(0);
     return addressLine;
-  }
-
-  private void takePicture() {
-    Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    this.startActivityForResult(camera, PICTURE_RESULT);
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    System.out.println("activity result");
-    if (requestCode == PICTURE_RESULT) {
-      System.out.println("picture result");
-      if (resultCode == Activity.RESULT_OK) {
-        System.out.println("picture ookay");
-        takePicture2(data);
-      }
-      else if (resultCode == Activity.RESULT_CANCELED) {
-
-      }
-    }
-  }
-
-  protected void takePicture2(Intent data) {
-    Bundle b = data.getExtras();
-    Bitmap pic = (Bitmap) b.get("data");
-    if (pic != null) {
-      ImageView imagePicture = (ImageView) this.findViewById(R.id.imageView1);
-      imagePicture.setImageBitmap(pic);
-    }
   }
 
   private void switchView() {

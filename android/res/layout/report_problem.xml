@@ -2,11 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/report_problem_layout" android:orientation="vertical"
 	android:layout_width="match_parent" android:layout_height="match_parent">
-	<ImageView android:src="@drawable/polaroid"
+	<ImageView android:src="@drawable/take_a_picture"
 		android:layout_width="fill_parent"
 		android:layout_height="200px"
 		android:id="@+id/report_image"
 		android:scaleType="fitCenter"></ImageView>
+	<LinearLayout android:id="@+id/linearLayout1" android:layout_height="35px" android:layout_width="match_parent" android:orientation="vertical"></LinearLayout>
 	<TextView android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceLarge"
 		android:id="@+id/textView1" android:text="@string/report_description"></TextView>

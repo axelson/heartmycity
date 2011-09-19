@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-    <ImageView android:layout_width="wrap_content" android:src="@drawable/logo" android:id="@+id/imageView1" android:layout_height="wrap_content"></ImageView>
-<TextView android:layout_height="wrap_content" android:text="TextView" android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:id="@+id/address_view"></TextView>
-<Button android:layout_width="wrap_content" android:text="@string/take_picture_button" android:layout_height="wrap_content" android:id="@+id/take_picture_button"></Button>
-<Button android:text="@string/report_problem_button" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/report_problem_button"></Button>
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical">
+	<LinearLayout android:id="@+id/linearLayout1"
+		android:layout_height="wrap_content" android:layout_width="match_parent">
+		<ImageView android:src="@drawable/heart"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:id="@+id/imageView2"></ImageView>
+		<LinearLayout android:id="@+id/linearLayout2"
+			android:layout_height="match_parent" android:layout_width="wrap_content"
+			android:orientation="vertical">
+			<TextView android:text="@string/name_by_logo"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:id="@+id/textView1" android:layout_width="wrap_content"
+				android:layout_height="wrap_content"></TextView>
+			<TextView android:textAppearance="?android:attr/textAppearanceMedium"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:id="@+id/app_description" android:text="@string/app_description"></TextView>
+		</LinearLayout>
+	</LinearLayout>
+	<LinearLayout android:id="@+id/linearLayout4" android:layout_height="40px" android:layout_width="match_parent" android:orientation="vertical"></LinearLayout>
+	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:src="@drawable/button" android:id="@+id/report_problem_button"></ImageView>
+	<LinearLayout android:id="@+id/linearLayout3" android:layout_height="40px" android:layout_width="match_parent" android:orientation="vertical">
+	</LinearLayout>
+	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:src="@drawable/view_reports_button" android:id="@+id/view_problems_button"></ImageView>
+	<LinearLayout android:id="@+id/LinearLayout02" android:layout_height="40px" android:layout_width="match_parent" android:orientation="vertical"></LinearLayout>
+	<ImageView android:layout_height="wrap_content" android:layout_width="fill_parent" android:src="@drawable/visit_website_button" android:id="@+id/visit_website_button"></ImageView>
+	<LinearLayout android:id="@+id/LinearLayout01" android:layout_height="30px" android:layout_width="match_parent" android:orientation="vertical"></LinearLayout>
+	<TextView android:text="TextView" android:textAppearance="?android:attr/textAppearanceLarge"
+		android:id="@+id/address_view" android:layout_height="wrap_content"
+		android:layout_width="wrap_content"></TextView>
 </LinearLayout>
