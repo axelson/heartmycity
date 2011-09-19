@@ -7,7 +7,12 @@
 		android:id="@+id/textView1" android:text="@string/report_view_title"></TextView>
 	<ImageView android:layout_height="200px" android:src="@drawable/polaroid"
 		android:layout_width="fill_parent" android:id="@+id/report_view_image"></ImageView>
-	<TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:id="@+id/textView2" android:layout_width="wrap_content" android:text="@string/report_description"></TextView>
-	<TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/report_view_description" android:text="@string/loading_text"></TextView>
+	<TextView android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_height="wrap_content" android:id="@+id/textView2"
+		android:layout_width="wrap_content" android:text="@string/report_description"></TextView>
+	<TextView android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:id="@+id/report_view_description" android:text="@string/loading_text"></TextView>
+	
 
 </LinearLayout>

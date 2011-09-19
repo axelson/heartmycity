@@ -37,6 +37,9 @@ public class ReportViewActivity extends Activity {
 
     ServerUpload serverUpload = new ServerUpload();
     // serverUpload.tryUpload(problemReport);
+    System.out.println("upload to imgur");
+    serverUpload.uploadImgur(problemReport);
     serverUpload.postData(problemReport);
+
   }
 }
