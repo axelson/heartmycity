@@ -11,6 +11,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
 import android.view.View;
@@ -53,9 +54,10 @@ public class UseGpsActivity extends Activity {
     ServerUpload serverUpload = new ServerUpload();
     String android_id = Secure.getString(getApplicationContext().getContentResolver(),
         Secure.ANDROID_ID);
-//    ProblemReport report = new ProblemReport("des", null, loc, android_id);
-//    ProblemReport.packageIntent(new Intent(), report, this.getApplicationContext());
-//    serverUpload.postData(report);
+    // ProblemReport report = new ProblemReport("des", null, loc, android_id);
+    // ProblemReport.packageIntent(new Intent(), report,
+    // this.getApplicationContext());
+    // serverUpload.postData(report);
 
     Geocoder geocoder = new Geocoder(getApplicationContext());
     String prettyPrintAddress = null;
@@ -79,7 +81,7 @@ public class UseGpsActivity extends Activity {
     Toast.LENGTH_SHORT).show();
 
     TextView currentAddress = (TextView) this.findViewById(R.id.address_view);
-    currentAddress.setText(prettyPrintAddress);
+    currentAddress.setText("Address: " + prettyPrintAddress);
 
     this.reportProblemButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -87,9 +89,18 @@ public class UseGpsActivity extends Activity {
         switchView();
       }
     });
+
+    this.visitWebsiteButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        System.out.println("Trying to visit website");
+        Uri uri = Uri.parse("http://heartmycity.me");
+        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+      }
+    });
   }
 
-  private String prettyPrintAddress(Address address) {
+  public static String prettyPrintAddress(Address address) {
     String addressLine = address.getAddressLine(0);
     return addressLine;
   }

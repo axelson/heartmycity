@@ -18,5 +18,7 @@
 	</EditText>
 	<Button android:text="@string/send_report_button"
 		android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/send_report_button"></Button>
+	<LinearLayout android:layout_height="25px" android:orientation="vertical" android:layout_width="match_parent" android:id="@+id/LinearLayout01"></LinearLayout>
+	<TextView android:textAppearance="?android:attr/textAppearanceLarge" android:layout_width="wrap_content" android:text="TextView" android:layout_height="wrap_content" android:id="@+id/address_view_text"></TextView>
 
 </LinearLayout>
