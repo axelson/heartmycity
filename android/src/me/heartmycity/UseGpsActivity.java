@@ -46,9 +46,6 @@ public class UseGpsActivity extends Activity {
 
     mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
     
-    String parseString = ServerUpload.parseString(null);
-    System.out.println("got: " + parseString);
-
     // LocationProvider locationProvider = LocationManager.NETWORK_PROVIDER;
     Location loc = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     String string = loc.toString();

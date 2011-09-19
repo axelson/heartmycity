@@ -40,7 +40,7 @@ public class ServerUpload {
 
   private static final String SERVER_URL = "http://ec2-107-20-189-184.compute-1.amazonaws.com/json/problems/";
 
-  public void postData(ProblemReport report) {
+  public void postData(ProblemReport report, String imgurLink) {
     // Create a new HttpClient and Post Header
     HttpClient httpclient = new DefaultHttpClient();
     HttpPost httppost = new HttpPost(SERVER_URL);
@@ -57,9 +57,11 @@ public class ServerUpload {
       nameValuePairs.add(new BasicNameValuePair("lat", latString));
       nameValuePairs.add(new BasicNameValuePair("long", longString));
       nameValuePairs.add(new BasicNameValuePair("phone_id", report.getAndroidId()));
+      System.out.println("uploading image url: " + imgurLink);
+      nameValuePairs.add(new BasicNameValuePair("image_url", imgurLink));
       // nameValuePairs.add(new BasicNameValuePair("image", "AndDev is Cool!"));
 
-      // httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+      httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
       SimpleMultipartEntity entity = new SimpleMultipartEntity();
 
@@ -73,7 +75,8 @@ public class ServerUpload {
       entity.addPart("phone_id", "phonid");
 
       Bitmap bitmap = report.getImage();
-      Bitmap bmpCompressed = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+//      Bitmap bmpCompressed = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+      Bitmap bmpCompressed = bitmap;
 
       MultipartEntity multipartEntity = new MultipartEntity(
           HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -89,7 +92,7 @@ public class ServerUpload {
       multipartEntity.addPart("description", new StringBody("full multi description"));
       multipartEntity.addPart("phone_id", new StringBody("phonemulti description"));
 
-      httppost.setEntity(multipartEntity);
+//      httppost.setEntity(multipartEntity);
 
       // Execute HTTP Post Request
       HttpResponse response = httpclient.execute(httppost);
@@ -111,7 +114,7 @@ public class ServerUpload {
     }
   }
 
-  public void uploadImgur(ProblemReport report) {
+  public String uploadImgur(ProblemReport report) {
     // Create a new HttpClient and Post Header
     HttpClient httpclient = new DefaultHttpClient();
     HttpPost httppost = new HttpPost("http://api.imgur.com/2/upload");
@@ -144,7 +147,8 @@ public class ServerUpload {
       entity.addPart("phone_id", "phonid");
 
       Bitmap bitmap = report.getImage();
-      Bitmap bmpCompressed = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+//      Bitmap bmpCompressed = Bitmap.createScaledBitmap(bitmap, 640, 480, true);
+      Bitmap bmpCompressed = bitmap;
 
       MultipartEntity multipartEntity = new MultipartEntity(
           HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -168,28 +172,26 @@ public class ServerUpload {
       System.out.println(inputStreamToString.toString());
       String string = inputStreamToString.toString();
 
-      String toParse = "<?xml version=\"1.0\" encoding=\"utf-8\"?><upload><image><name/><title/><caption/><hash>koo98</hash><deletehash>YNC29U4k1s3M3Lg</deletehash><datetime>2011-09-19 01:38:22</datetime><type>image/jpeg</type><animated>false</animated><width>640</width><height>480</height><size>167358</size><views>0</views><bandwidth>0</bandwidth></image><links><original>http://i.imgur.com/koo98.jpg</original><imgur_page>http://imgur.com/koo98</imgur_page><delete_page>http://imgur.com/delete/YNC29U4k1s3M3Lg</delete_page><small_square>http://i.imgur.com/koo98s.jpg</small_square><large_thumbnail>http://i.imgur.com/koo98l.jpg</large_thumbnail></links></upload>";
+      String imgurUrl = ServerUpload.parseString(string);
 
-      Pattern pattern = Pattern.compile("http[(.*?)\\]");
-      Matcher m = pattern.matcher("FOO[BAR]");
-      while (m.find()) {
-        String s = m.group(1);
-        System.out.println(s);
-        // s now contains "BAR"
-      }
       System.out.println(response.toString());
       System.out.println(response.getAllHeaders());
       System.out.println(response.getStatusLine());
+      return imgurUrl;
 
     }
     catch (ClientProtocolException e) {
+      System.out.println("exception");
       System.out.println("exception: " + e.getStackTrace());
       // TODO Auto-generated catch block
     }
     catch (IOException e) {
+      System.out.println("exception");
       System.out.println("exception: " + e.getStackTrace());
       // TODO Auto-generated catch block
     }
+    System.out.println("Got bad imgur address!");
+    return "http://i.imgur.com/koo98.jpg";
   }
 
   // Fast Implementation
@@ -218,7 +220,7 @@ public class ServerUpload {
 
   public static String parseString(String toParse) {
     System.out.println("parsing");
-    toParse = "<?xml version=\"1.0\" encoding=\"utf-8\"?><upload><image><name/><title/><caption/><hash>koo98</hash><deletehash>YNC29U4k1s3M3Lg</deletehash><datetime>2011-09-19 01:38:22</datetime><type>image/jpeg</type><animated>false</animated><width>640</width><height>480</height><size>167358</size><views>0</views><bandwidth>0</bandwidth></image><links><original>http://i.imgur.com/koo98.jpg</original><imgur_page>http://imgur.com/koo98</imgur_page><delete_page>http://imgur.com/delete/YNC29U4k1s3M3Lg</delete_page><small_square>http://i.imgur.com/koo98s.jpg</small_square><large_thumbnail>http://i.imgur.com/koo98l.jpg</large_thumbnail></links></upload>";
+//    toParse = "<?xml version=\"1.0\" encoding=\"utf-8\"?><upload><image><name/><title/><caption/><hash>koo98</hash><deletehash>YNC29U4k1s3M3Lg</deletehash><datetime>2011-09-19 01:38:22</datetime><type>image/jpeg</type><animated>false</animated><width>640</width><height>480</height><size>167358</size><views>0</views><bandwidth>0</bandwidth></image><links><original>http://i.imgur.com/koo98.jpg</original><imgur_page>http://imgur.com/koo98</imgur_page><delete_page>http://imgur.com/delete/YNC29U4k1s3M3Lg</delete_page><small_square>http://i.imgur.com/koo98s.jpg</small_square><large_thumbnail>http://i.imgur.com/koo98l.jpg</large_thumbnail></links></upload>";
 
     Pattern pattern = Pattern.compile("http://(.*?)\\.jpg");
     Matcher m = pattern.matcher(toParse);
