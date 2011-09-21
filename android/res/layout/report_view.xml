@@ -13,6 +13,9 @@
 	<TextView android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_height="wrap_content" android:layout_width="wrap_content"
 		android:id="@+id/report_view_description" android:text="@string/loading_text"></TextView>
-	
+	<LinearLayout android:layout_height="290px" android:layout_width="match_parent" android:id="@+id/linearLayout1" android:orientation="vertical"></LinearLayout>
+	<ImageView android:layout_height="wrap_content"
+		android:src="@drawable/view_on_website_button" android:layout_width="fill_parent" android:id="@+id/view_on_map_button"></ImageView>
+
 
 </LinearLayout>

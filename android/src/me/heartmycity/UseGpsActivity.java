@@ -45,7 +45,7 @@ public class UseGpsActivity extends Activity {
     LocationListener mlocListener = new MyLocationListener(getApplicationContext());
 
     mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mlocListener);
-    
+
     // LocationProvider locationProvider = LocationManager.NETWORK_PROVIDER;
     Location loc = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
     String string = loc.toString();
@@ -64,7 +64,7 @@ public class UseGpsActivity extends Activity {
       List<Address> fromLocation = geocoder.getFromLocation(loc.getLatitude(),
           loc.getLongitude(), 1);
       System.out.println("location: " + fromLocation.toString());
-      prettyPrintAddress = this.prettyPrintAddress(fromLocation.get(0));
+      prettyPrintAddress = UseGpsActivity.prettyPrintAddress(fromLocation.get(0));
     }
     catch (IOException e) {
       // TODO Auto-generated catch block
@@ -92,9 +92,13 @@ public class UseGpsActivity extends Activity {
     this.visitWebsiteButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        System.out.println("Trying to visit website");
-        Uri uri = Uri.parse("http://heartmycity.me");
-        startActivity(new Intent(Intent.ACTION_VIEW, uri));
+         System.out.println("Trying to visit website");
+         Uri uri = Uri.parse("http://heartmycity.me");
+         startActivity(new Intent(Intent.ACTION_VIEW, uri));
+//        System.out.println("Trying to visit website");
+//        String mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=40.714728,-73.998672&zoom=12&size=400x400&sensor=false";
+//        Uri uri = Uri.parse(mapUrl);
+//        startActivity(new Intent(Intent.ACTION_VIEW, uri));
       }
     });
   }
